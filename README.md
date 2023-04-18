@@ -51,7 +51,7 @@ Once you have uploaded a file or entered text, you can ask questions related to 
 
 1.  Clone the repository:
 
-`git clone https://github.com/Kaludii/File-QnA-AI-Assistant.git` 
+`git clone https://github.com/Bytemaster82/Chatgpt-upload-pdf.git`
 
 2.  Install the required packages:
 To run this app, you will need to install the following dependencies or type `pip install -r requirements.txt` to automatically download:

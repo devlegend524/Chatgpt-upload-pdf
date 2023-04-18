@@ -12,27 +12,30 @@ messages = [
     {"role": "system", "content": "You are a professional Question and Answer AI Assistant helping with information in regards to a csv, pdf, and text input file."},
 ]
 
+
 def chatbot(api_key, query_text, file_data):
     openai.api_key = api_key
     if query_text:
         messages.append({"role": "user", "content": query_text})
     if file_data:
-        messages.append({"role": "user", "content": f"{file_type} File Type: {file_data}"})
-    
+        messages.append(
+            {"role": "user", "content": f"{file_type} File Type: {file_data}"})
+
     chat = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", messages=messages, stream=True
     )
-    
+
     response_text = st.empty()
     response_line = ""
-    
+
     for chunk in chat:
         chunk_message = chunk['choices'][0]['delta']
         if chunk_message.get('content'):
             response_line += chunk_message['content']
             response_text.write("Response: " + response_line)
-    
+
     messages.append({"role": "assistant", "content": response_line})
+
 
 api_key = st.text_input("OpenAI API Key", type="password", key=2)
 query_text = st.text_area("Question", key="input", height=100)
@@ -45,7 +48,7 @@ if file_type == "CSV":
     if file:
         df = pd.read_csv(file)
         st.write("Uploaded CSV file:")
-        st.write(df)       
+        st.write(df)
         file_data = df.to_csv(index=False)
 elif file_type == "PDF":
     file = st.file_uploader("Upload PDF file", type="pdf")
@@ -82,7 +85,6 @@ if st.button("Send"):
 st.markdown("")
 st.markdown("---")
 st.markdown("")
-st.markdown("<p style='text-align: center'><a href='https://github.com/Kaludii'>Github</a> | <a href='https://huggingface.co/Kaludi'>HuggingFace</a></p>", unsafe_allow_html=True)
 
 hide_streamlit_style = """
             <style>
